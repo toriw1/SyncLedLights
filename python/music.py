@@ -8,9 +8,9 @@ import os
 combined = []
 playlist = AudioSegment.empty()
 
-for entry in os.scandir('/home/pi/music'):
+for entry in os.scandir('/home/ctis321/Music'):
     if entry.is_file():
-        song = AudioSegment.from_mp3(entry.path)
+        song = AudioSegment.from_wav(entry.path)
         combined.append(song)
 
 for song in combined:
@@ -19,3 +19,4 @@ for song in combined:
 print(playlist)
 
 play(playlist)
+
