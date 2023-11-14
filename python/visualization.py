@@ -2,12 +2,13 @@ from __future__ import print_function
 from __future__ import division
 import time
 import numpy as np
-from scipy.ndimage.filters import gaussian_filter1d
+from scipy.ndimage import gaussian_filter1d
 import config
 import microphone
 import dsp
 import led
 import sys
+import subprocess
 
 visualization_type = sys.argv[1]
 scroll_divisor_config = 4 if sys.argv[1] == "scroll_quad" else 2
@@ -247,6 +248,8 @@ def microphone_update(audio_samples):
     y_roll[:-1] = y_roll[1:]
     y_roll[-1, :] = np.copy(y)
     y_data = np.concatenate(y_roll, axis=0).astype(np.float32)
+     # Print the contents of asound.conf
+    subprocess.run(["cat", "/etc/asound.conf"])
     
     vol = np.max(np.abs(y_data))
     if vol < config.MIN_VOLUME_THRESHOLD:
